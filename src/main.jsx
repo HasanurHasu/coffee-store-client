@@ -8,25 +8,33 @@ import {
 import './index.css'
 import AddCoffee from './components/AddCoffee.jsx';
 import UpdateCoffee from './components/UpdateCoffee.jsx';
+import Root from './components/Root.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App></App>,
-    loader: () => fetch('http://localhost:5000/coffee')
-  },
-  {
-    path: '/addCoffee',
-    element: <AddCoffee></AddCoffee>
-  },
-  {
-    path: '.updateCoffee',
-    element: <UpdateCoffee></UpdateCoffee>
+    path: '/',
+    element: <Root></Root>,
+    children: [
+      {
+        path: "/",
+        element: <App></App>,
+        loader: () => fetch('http://localhost:5000/coffee')
+      },
+      {
+        path: '/addCoffee',
+        element: <AddCoffee></AddCoffee>
+      },
+      {
+        path: '.updateCoffee',
+        element: <UpdateCoffee></UpdateCoffee>
+      }
+    ]
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
